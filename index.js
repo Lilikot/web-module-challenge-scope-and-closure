@@ -66,7 +66,7 @@ NOTE: This will be a callback function for the tasks below
 */
 
 function inning(){
-    let ranNum = Math.floor(Math.random() * 2);
+    let ranNum = Math.floor(Math.random() * Math.floor(3));
     return ranNum;
 }
 
@@ -85,10 +85,16 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(num, numcb){
+function finalScore(inningCb, innings){
+  let homeScore = 0
+  let awayScore = 0
+  for (let i = 0; i < innings; i++) {
+    homeScore += inningCb();
+    awayScore += inningCb();
+  }
   return {
-    "Home": numcb,
-    "Away": numcb
+    "Home": homeScore,
+    "Away": awayScore
   }
 }
 
@@ -154,7 +160,12 @@ function scoreboard(scoreCb, gameCb, number) {
     const curScore = scoreCb(gameCb) 
     homeScore += curScore["Home"]
     awayScore += curScore["Away"] 
-    result.push(`Inning ${i + 1}: Away ${awayScore} - Home ${homeScore}`)  
+    result.push(`Inning ${i + 1}: Away ${curScore["Away"]} - Home ${curScore["Home"]}`)  
+  }
+  if (homeScore === awayScore) {
+    result.push(`This game will require extra innings: Away ${curScore["Away"]} - Home ${curScore["Home"]}`);
+  } else {
+    result.push(`Final Score: Away ${awayScore} - Home ${homeScore}`);
   }
   return result;
 }
