@@ -28,11 +28,14 @@ console.log(processFirstItem(['foo','bar'],function(str){return str+str}));
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
-  
+    Counter1 resets the count every time it gets called. 
+    Counter2 store the count value outside of the function so that every time it gets called, it would update the count.
   2. Which of the two uses a closure? How can you tell?
-  
+    Counter1. Because inner function reached outer function to grab a value defined in outer function.
   3. In what scenario would the counter1 code be preferable? In what scenario would 
      counter2 be better?  
+    Counter1 code would be preferable when you want to use the function elsewhere. 
+    Counter2 code would be preferable when you want to update the original value and keep track of it.
 */
 
 // counter1 code
@@ -63,7 +66,8 @@ NOTE: This will be a callback function for the tasks below
 */
 
 function inning(/*Code Here*/){
-    /*Code Here*/
+    let ranNum = Math.floor(Math.random() * 2);
+    return ranNum;
 }
 
 
@@ -81,8 +85,11 @@ Use the finalScore function below to do the following:
 }
 */ 
 
-function finalScore(/*code Here*/){
-  /*Code Here*/
+function finalScore(num, numcb){
+  return {
+    "Home": numcb,
+    "Away": numcb
+  }
 }
 
 /* ⚾️⚾️⚾️ Task 4: getInningScore() ⚾️⚾️⚾️
@@ -90,8 +97,11 @@ Use the getInningScore() function below to do the following:
   1. Receive a callback function - you will pass in the inning function from task 2 as your argument 
   2. Return an object with a score for home and a score for away that populates from invoking the inning callback function */
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
+function getInningScore(inningCb) {
+  return {
+    "Home": inningCb(),
+    "Away": inningCb()
+  }
 }
 
 
