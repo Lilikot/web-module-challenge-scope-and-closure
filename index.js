@@ -65,7 +65,7 @@ Use the inning function below to do the following:
 NOTE: This will be a callback function for the tasks below
 */
 
-function inning(/*Code Here*/){
+function inning(){
     let ranNum = Math.floor(Math.random() * 2);
     return ranNum;
 }
@@ -99,8 +99,8 @@ Use the getInningScore() function below to do the following:
 
 function getInningScore(inningCb) {
   return {
-    "Home": inningCb(),
-    "Away": inningCb()
+    "Home":inningCb(),
+    "Away":inningCb()
   }
 }
 
@@ -146,10 +146,19 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(scoreCb, gameCb, number) {
+  const result = []
+  let homeScore = 0;
+  let awayScore = 0;
+  for (let i = 0; i < number; i++) {
+    const curScore = scoreCb(gameCb) 
+    homeScore += curScore["Home"]
+    awayScore += curScore["Away"] 
+    result.push(`Inning ${i + 1}: Away ${awayScore} - Home ${homeScore}`)  
+  }
+  return result;
 }
-
+console.log(scoreboard(getInningScore,inning, 9))
 
 
 
